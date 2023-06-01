@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 
-const { formatDate } = require('./utils');
+const { formatDate } = require('../utils/moment');
 const now = new Date(); // or any other Date object
 const formattedDate = formatDate(now);
 
@@ -70,7 +70,6 @@ const ThoughtSchema = new Schema(
             required: true,
             trim: true,
         },
-
         // use ReactionSchema to validate data for a reaction
         reactions: [ReactionSchema],
     },

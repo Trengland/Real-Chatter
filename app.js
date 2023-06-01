@@ -1,27 +1,22 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+const db = require('./config/connection');
+const routes = require('./routes');
+const PORT = process.env.PORT || 3001;
 
 // Create the Express app
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(routes);
 
-// Define routes
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost/social_network', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => {
-    console.log('Connected to MongoDB');
-    // Start the server
-    app.listen(3000, () => {
-      console.log('Server started on port 3000');
-    });
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err.message);
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
   });
+}
+);
+
+
+
