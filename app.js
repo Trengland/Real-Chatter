@@ -1,22 +1,42 @@
 const express = require('express');
-// const mongoose = require('mongoose');
-const db = require('./config/connection');
-const routes = require('./routes');
-const PORT = process.env.PORT || 3001;
+const mongoose = require('mongoose');
+const connectDB = require('./config/connection');
 
-// Create the Express app
+// Import the API routes
+const apiRoutes = require('./routes/api');
+
+
+// Create an instance of Express app
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+
+
+// Set up JSON parsing for request bodies
 app.use(express.json());
-app.use(routes);
 
 
-db.once('open', () => {
-  app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
+//Connect to DB
+connectDB();
+
+
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/real-chatter', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Failed to connect to MongoDB', error);
   });
-}
-);
 
 
+// Mount the API routes
+app.use('/api', apiRoutes);
 
+
+// Start the server
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

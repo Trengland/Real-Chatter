@@ -1,12 +1,8 @@
-const router = require('express').Router();
-const apiRoutes = require('./api');
+const express = require('express');
+const router = express.Router();
 
-router.use('/api', apiRoutes);
+router.get('/', (req, res) => {
+  res.send('Welcome to Real Chatter API');
+});
 
-// If no API routes are hit, send the React app
-router.use((req, res) => {
-res.send('Hello World!');
- });
-
- 
 module.exports = router;

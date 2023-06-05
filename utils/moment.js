@@ -1,9 +1,9 @@
 const moment = require('moment');
 
-function formatDate(date) {
-  return moment(date).format('YYYY-MM-DD');
-}
-
-module.exports = {
-  formatDate
+// Format the timestamp to a desired format
+const formatTimestamp = (timestamp) => {
+  return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
 };
+
+
+module.exports = { formatTimestamp };
