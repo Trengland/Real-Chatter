@@ -35,22 +35,25 @@ getAllThoughts : async (req, res) => {
 
 
 // Create a new thought
-createThought : async (req, res) => {
+createThought: async (req, res) => {
   try {
-    const { content } = req.body;
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
 
-    const thought = new Thought({ content, author: User });
-    await thought.save();
+    // const user = await User.find(author.username);
+    // if (!user) {
+    //   return res.status(404).json({ error: 'User not found', nothing: "nothing new ", req: JSON.stringify(req.body) });
+  
+    // }
+    const thought = await Thought.create( req.body );
+    res.json({ message: 'Thought created successfully' });
+    // await thought.save();
 
-    res.status(201).json({ thought });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Server error' });
   }
 },
+
+
 
 
 
@@ -70,6 +73,7 @@ updateThought : async (req, res) => {
 
     res.json({ thought });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Server error' });
   }
 },
@@ -78,19 +82,54 @@ updateThought : async (req, res) => {
 // Delete a thought
 deleteThought : async (req, res) => {
   try {
-    const thought = await Thought.findById(req.params.id);
+    const thought = await Thought.findOneAndRemove(req.params.id);
     if (!thought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    await thought.remove();
+    // Thought.findOneAndRemove({ _id: req.params.thoughtId })
 
     res.json({ message: 'Thought deleted successfully' });
   } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Server error' });
+  }
+},
+
+
+// Add a reaction
+addReaction : async (req, res) => {
+  try {
+    const { reactionBody } = req.body;
+
+    const thought = await Thought.findOneAndUpdate(req.params.id, { reactions: { reactionBody } });
+    if (!thought) {
+      return res.status(404).json({ error: 'Thought not found' });
+    }
+
+    res.json({ thought });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Server error' });
+  }
+},
+
+
+// Delete a reaction
+deleteReaction : async (req, res) => {
+  try {
+    const thought = await Thought.findOneAndRemove(req.params.id);
+    if (!thought) {
+      return res.status(404).json({ error: 'Thought not found' });
+    }
+
+    res.json({ message: 'Thought deleted successfully' });
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Server error' });
   }
 }
-} 
+};
 
 
 module.exports = thoughtController;

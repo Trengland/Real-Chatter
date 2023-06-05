@@ -10,8 +10,10 @@ const thoughtController = require('../../controllers/thought-control');
 router.get('/', thoughtController.getAllThoughts);
 router.post('/', thoughtController.createThought);
 router.get('/:id', thoughtController.getThoughtById);
-router.put('/:id/update', thoughtController.updateThought);
-router.delete('/:id/delete', thoughtController.deleteThought);
+router.put('/:id', thoughtController.updateThought);
+router.delete('/:id', thoughtController.deleteThought);
+router.post('/:id/reactions', thoughtController.addReaction);
+router.delete('/:id/reactions/:reactionId', thoughtController.deleteReaction);
 
 
 module.exports = router;
