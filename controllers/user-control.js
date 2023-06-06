@@ -11,6 +11,7 @@ const userController = {
     }
   },
 
+
   createUser: async (req, res) => {
     try {
       const { username } = req.body;
@@ -27,7 +28,7 @@ const userController = {
 
   getUserById: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id).populate("friends").populate("thoughts");
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
