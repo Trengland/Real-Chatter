@@ -55,18 +55,18 @@ The server will start running on http://localhost:3001.
 ## API Documentation
 The API endpoints and their usage are documented below:
 
-GET /api/thoughts: Get all thoughts.
-GET /api/thoughts/:id: Get a single thought by ID.
-POST /api/thoughts: Create a new thought.
-PUT /api/thoughts/:id: Update a thought by ID.
-DELETE /api/thoughts/:id: Delete a thought by ID.
-POST /api/thoughts/:id/reactions: React to a thought by ID (like, dislike).
-POST /api/users: Register a new user.
-POST /api/users/login: User login.
-GET /api/users/:id: Get a user by ID.
-GET /api/users: Get all users.
-PUT /api/users/:id/friends: Add a user to the friend list.
-DELETE /api/users/:id/friends/:friendId: Remove a user from the friend list.
+GET /api/thoughts: Get all thoughts.\
+GET /api/thoughts/:id: Get a single thought by ID.\
+POST /api/thoughts: Create a new thought.\
+PUT /api/thoughts/:id: Update a thought by ID.\
+DELETE /api/thoughts/:id: Delete a thought by ID.\
+POST /api/thoughts/:id/reactions: React to a thought by ID (like, dislike).\
+POST /api/users: Register a new user.\
+POST /api/users/login: User login.\
+GET /api/users/:id: Get a user by ID.\
+GET /api/users: Get all users.\
+PUT /api/users/:id/friends: Add a user to the friend list.\
+DELETE /api/users/:id/friends/:friendId: Remove a user from the friend list.\
 Please note that the API endpoints may require authentication or specific request payloads. Refer to the codebase and documentation for more details.
 
 
