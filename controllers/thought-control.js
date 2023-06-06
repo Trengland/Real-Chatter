@@ -97,7 +97,7 @@ addReaction : async (req, res) => {
       { new: true }
  );
     if (!thought) {
-      return res.status(404).json({ error: 'Thought not found' });
+      return res.status(404).json({ error: 'Reaction not found' });
     }
 
     res.json({ thought });
@@ -120,7 +120,7 @@ deleteReaction : async (req, res) => {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    res.json({ message: 'Thought deleted successfully' });
+    res.json({ message: 'Reaction deleted successfully' });
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Server error' });
