@@ -1,9 +1,9 @@
 const { formatTimestamp } = require('../utils/moment');
 const Thought = require('../models/thought');
-const User = require('../models/user');
+// const User = require('../models/user');
+
 
 const thoughtController = {
-
 // Get a single thought
 getThoughtById : async (req, res) => {
   try {
@@ -37,12 +37,6 @@ getAllThoughts : async (req, res) => {
 // Create a new thought
 createThought: async (req, res) => {
   try {
-
-    // const user = await User.find(author.username);
-    // if (!user) {
-    //   return res.status(404).json({ error: 'User not found', nothing: "nothing new ", req: JSON.stringify(req.body) });
-  
-    // }
     const thought = await Thought.create( req.body );
     res.json({ message: 'Thought created successfully' });
     // await thought.save();
@@ -52,9 +46,6 @@ createThought: async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 },
-
-
-
 
 
 
@@ -87,8 +78,6 @@ deleteThought : async (req, res) => {
       return res.status(404).json({ error: 'Thought not found' });
     }
 
-    // Thought.findOneAndRemove({ _id: req.params.thoughtId })
-
     res.json({ message: 'Thought deleted successfully' });
   } catch (error) {
     console.log(error)
@@ -100,9 +89,13 @@ deleteThought : async (req, res) => {
 // Add a reaction
 addReaction : async (req, res) => {
   try {
-    const { reactionBody } = req.body;
+    // const { reactionBody } = req.body;
 
-    const thought = await Thought.findOneAndUpdate(req.params.id, { reactions: { reactionBody } });
+    const thought = await Thought.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { reactions : req.body } },
+      { new: true }
+ );
     if (!thought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
@@ -118,7 +111,11 @@ addReaction : async (req, res) => {
 // Delete a reaction
 deleteReaction : async (req, res) => {
   try {
-    const thought = await Thought.findOneAndRemove(req.params.id);
+    const thought = await Thought.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { reactions : req.params.reactionId } },
+      { new: true }
+ );
     if (!thought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
