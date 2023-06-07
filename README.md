@@ -1,6 +1,9 @@
 # Real Chatter
 
-Real Chatter is a social network web application where users can share their thoughts, react to friends' thoughts, and create a friend list. This repository contains the API server code for Real Chatter.
+Real Chatter is a social network web application where users can share their thoughts, react to friends' thoughts, and create a friend list. This repository contains the API server code for Real Chatter.\
+VIDEO LINKS: \
+https://www.loom.com/share/4c3edf0affa7452ba09f97e23b5ae4dc - 5min\
+https://www.loom.com/share/73d3f748d53348f48a10df7a786c84c5 - 2min
 
 
 ## Index
